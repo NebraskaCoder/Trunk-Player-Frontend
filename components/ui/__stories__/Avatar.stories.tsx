@@ -21,7 +21,7 @@ export const Image: Story = {
     src: "https://github.com/shadcn.png",
     alt: "@shadcn",
   },
-  render: (a, c) => (
+  render: (_a, c) => (
     <Avatar>
       <AvatarImage
         // @ts-expect-error
