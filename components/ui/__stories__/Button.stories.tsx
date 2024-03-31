@@ -90,10 +90,11 @@ export const Loading: Story = {
   args: {
     variant: "default",
     disabled: true,
+    disabledType: "disabled",
     children: (
       <>
         <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-        Please wait...
+        Saving data...
       </>
     ),
   },
@@ -104,5 +105,6 @@ export const Disabled: Story = {
     variant: "default",
     children: "Button",
     disabled: true,
+    disabledType: "aria-disabled",
   },
 };

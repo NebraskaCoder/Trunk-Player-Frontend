@@ -26,7 +26,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const PrimaryExample: Story = {
+export const ExampleCard: Story = {
   args: {
     children: (
       <>
@@ -45,8 +45,37 @@ export const PrimaryExample: Story = {
   },
 };
 
-export const Secondary: Story = {
-  args: {
-    children: "Button",
-  },
+const SystemCard = ({
+  name,
+  description,
+}: {
+  name: string;
+  description?: string;
+}) => (
+  <Card>
+    <CardHeader>
+      <CardTitle>{name}</CardTitle>
+      {/* {description && <CardDescription>{description}</CardDescription>} */}
+    </CardHeader>
+    {description && (
+      <CardContent>
+        <p>{description}</p>
+      </CardContent>
+    )}
+    {/* <CardFooter>
+      <p>Card Footer</p>
+    </CardFooter> */}
+  </Card>
+);
+
+export const ListOfSystems: Story = {
+  render: () => (
+    <div className="grid grid-cols-2 gap-4">
+      <SystemCard
+        name="NYC Interoperable Communications Network (NYCICN)"
+        description="The NYC Interoperable Communications Network (NYCICN) is a trunked radio system. It uses the P25 standard for emergency and municipal communication. The network features Motorola's Dynamic Dual Mode technology."
+      />
+      <SystemCard name="U.S. Marshals Service" />
+    </div>
+  ),
 };
