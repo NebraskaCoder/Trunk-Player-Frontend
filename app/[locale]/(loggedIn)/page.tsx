@@ -1,5 +1,8 @@
-// import { getServerSession } from "next-auth";
-// import { OPTIONS as sessionOptions } from "@/app/api/auth/[...nextauth]/route";
+import { useTranslations } from "next-intl";
+
+import SummaryList from "./SummaryList";
+
+import H1 from "@/components/typography/H1";
 
 import type { Metadata } from "next";
 
@@ -7,8 +10,13 @@ export const metadata: Metadata = {
   title: "Dashboard - Trunk-Player",
 };
 
-export default async function DashboardPage() {
-  // const session = await getServerSession(sessionOptions);
+export default function DashboardPage() {
+  const t = useTranslations("dashboard");
 
-  return <></>;
+  return (
+    <div className="flex flex-col gap-y-5">
+      <H1>{t("summary.header")}</H1>
+      <SummaryList />
+    </div>
+  );
 }

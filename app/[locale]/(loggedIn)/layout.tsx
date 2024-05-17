@@ -11,7 +11,7 @@ export default function LoggedInLayout({
   return (
     <NextAuthProvider>
       <Header />
-      <main className="mt-7 ml-7">{children}</main>
+      <main className="p-7">{children}</main>
       <Footer />
     </NextAuthProvider>
   );

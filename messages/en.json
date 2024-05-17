@@ -29,5 +29,14 @@
     "passwordRequired": "Password is required!",
     "register": "Register",
     "login": "Login"
+  },
+  "dashboard": {
+    "summary": {
+      "header": "Summary",
+      "totalSystems": "Total Systems",
+      "totalScannersScanLists": "Total Scanners / Scan Lists",
+      "totalDepartments": "Total Departments",
+      "totalTransmissions": "Total Transmissions"
+    }
   }
 }
