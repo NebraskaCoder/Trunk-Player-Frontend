@@ -37,6 +37,11 @@
       "totalScannersScanLists": "Total Scanners / Scan Lists",
       "totalDepartments": "Total Departments",
       "totalTransmissions": "Total Transmissions"
+    },
+    "recentTransmissions": {
+      "header": "Recent Transmissions",
+      "noTransmissions": "No recent transmissions found!",
+      "tempPlaceholder": "Recent transmissions goes here..."
     }
   }
 }

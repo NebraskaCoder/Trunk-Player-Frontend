@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 
 import SummaryList from "./SummaryList";
+import RecentTransmissions from "./RecentTransmissions";
 
 import H1 from "@/components/typography/H1";
 
@@ -17,6 +18,7 @@ export default function DashboardPage() {
     <div className="flex flex-col gap-y-5">
       <H1>{t("summary.header")}</H1>
       <SummaryList />
+      <RecentTransmissions />
     </div>
   );
 }
