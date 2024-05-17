@@ -104,6 +104,7 @@ export const OPTIONS: AuthOptions = {
       if (user) {
         token.access_token = user.access_token;
         token.apiUser = user.apiUser;
+        token.name = user.name;
       }
 
       return token;

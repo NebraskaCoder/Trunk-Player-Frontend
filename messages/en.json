@@ -1,11 +1,24 @@
 {
   "app": {
     "name": "TrunkPlayer-NG",
+    "nameDisplay": "Trunk Player",
     "description": "A project to play back recorded radio transmissions used on site."
   },
   "notImplemented": {
     "page": "This page has not been implemented yet!",
     "component": "This component has not been implemented yet!"
+  },
+  "temp": {
+    "user": {
+      "name": "Trunk Player User",
+      "initials": "TU"
+    }
+  },
+  "header": {
+    "logout": {
+      "logout": "Logout",
+      "logoutProgressMessage": "Please wait while we log you out..."
+    }
   },
   "loginPage": {
     "header": "Login to Trunk-Player",

@@ -8,6 +8,7 @@ const publicPages = ["/login", "/register"];
 
 const intlMiddleware = createIntlMiddleware({
   locales,
+  localePrefix: "as-needed",
   defaultLocale: "en",
 });
 
