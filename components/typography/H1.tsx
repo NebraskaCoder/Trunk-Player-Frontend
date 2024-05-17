@@ -1,11 +1,18 @@
-import type { ReactNode } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 
-export interface H1Props {
-  children?: ReactNode;
-}
+const H1 = forwardRef<HTMLHeadingElement, HTMLAttributes<HTMLHeadingElement>>(
+  ({ children }, ref) => {
+    return (
+      <h1
+        ref={ref}
+        className="text-2xl font-bold"
+      >
+        {children}
+      </h1>
+    );
+  }
+);
 
-const H1 = ({ children }: H1Props) => {
-  return <h1 className="text-2xl font-bold">{children}</h1>;
-};
+H1.displayName = "H1";
 
 export default H1;
