@@ -17,6 +17,8 @@ const Card = React.forwardRef<
 ));
 Card.displayName = "Card";
 
+// TODO: Support border color variants
+
 const CardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
