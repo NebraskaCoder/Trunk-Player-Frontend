@@ -8,8 +8,8 @@ type ReduxProviderType = {
   children: ReactNode;
 };
 
-function ReduxProvider({ children }: ReduxProviderType) {
+const ReduxProvider = ({ children }: ReduxProviderType) => {
   return <Provider store={store}>{children}</Provider>;
-}
+};
 
 export default ReduxProvider;

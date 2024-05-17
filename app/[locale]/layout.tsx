@@ -3,9 +3,10 @@ import { checkLanguage } from "@/utils/i18nUtils";
 import { notFound } from "next/navigation";
 import "./globals.css";
 
+import ReduxProvider from "@/components/ReduxProvider";
+
 import type { AvailableLanguagesType } from "@/types/i18nTypes";
 import type { ReactNode } from "react";
-import ReduxProvider from "@/components/ReduxProvider";
 
 async function getMessages(locale: AvailableLanguagesType) {
   try {
