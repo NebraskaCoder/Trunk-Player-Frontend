@@ -19,14 +19,28 @@ Card.displayName = "Card";
 
 const CardHeader = React.forwardRef<
   HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-  <div
-    ref={ref}
-    className={cn("flex flex-col space-y-1.5 p-6", className)}
-    {...props}
-  />
-));
+  React.HTMLAttributes<HTMLDivElement> & {
+    noTopBorder?: boolean;
+    forceTopBorder?: boolean;
+  }
+>(
+  (
+    { noTopBorder = false, forceTopBorder = false, className, ...props },
+    ref
+  ) => (
+    <div
+      ref={ref}
+      className={cn(
+        "flex flex-col space-y-1.5 p-6",
+        className,
+        forceTopBorder || (!noTopBorder && !className)
+          ? "border-t-8 border-slate-800 rounded-md"
+          : ""
+      )}
+      {...props}
+    />
+  )
+);
 CardHeader.displayName = "CardHeader";
 
 const CardTitle = React.forwardRef<
