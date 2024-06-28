@@ -1,18 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authenticationReducer from "state/slices/authenticationSlice";
-import layoutReducer from "state/slices/layoutSlice";
-import userReducer from "state/slices/userSlice";
-import appNotificationsReducer from "state/slices/appNotificationsSlice";
 
-export function makeStore() {
+import { socketConnectionSlice } from "../slices/socketConnectionSlice";
+import systemsReducer from "../slices/entitySlices/systemsSlice";
+
+export const makeStore = () => {
   return configureStore({
     reducer: {
-      authentication: authenticationReducer,
-      layout: layoutReducer,
-      user: userReducer,
-      appnotifications: appNotificationsReducer,
+      socketConnection: socketConnectionSlice.reducer,
+      systems: systemsReducer,
     },
+    devTools: process.env.NODE_ENV !== "production",
   });
-}
+};
 
 export const store = makeStore();

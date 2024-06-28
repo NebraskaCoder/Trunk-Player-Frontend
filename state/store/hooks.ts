@@ -1,11 +1,13 @@
-import type { ChangeEvent } from "react";
-import { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef, type ChangeEvent } from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 
 import type { AppDispatch, AppState } from "./index";
 
 export const useForm =
   <TContent>(defaultValues: TContent) =>
+  // eslint-disable-next-line no-unused-vars
   (handler: (content: TContent) => void) =>
   async (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();

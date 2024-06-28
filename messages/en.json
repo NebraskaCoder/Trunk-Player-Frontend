@@ -1,0 +1,47 @@
+{
+  "app": {
+    "name": "TrunkPlayer-NG",
+    "nameDisplay": "Trunk Player",
+    "description": "A project to play back recorded radio transmissions used on site."
+  },
+  "notImplemented": {
+    "page": "This page has not been implemented yet!",
+    "component": "This component has not been implemented yet!"
+  },
+  "temp": {
+    "user": {
+      "name": "Trunk Player User",
+      "initials": "TU"
+    }
+  },
+  "header": {
+    "logout": {
+      "logout": "Logout",
+      "logoutProgressMessage": "Please wait while we log you out..."
+    }
+  },
+  "loginPage": {
+    "header": "Login to Trunk-Player",
+    "emailAddress": "Email address",
+    "emailRequired": "Email address is required!",
+    "emailInvalid": "Invalid email address!",
+    "password": "Password",
+    "passwordRequired": "Password is required!",
+    "register": "Register",
+    "login": "Login"
+  },
+  "dashboard": {
+    "summary": {
+      "header": "Summary",
+      "totalSystems": "Total Systems",
+      "totalScannersScanLists": "Total Scanners / Scan Lists",
+      "totalDepartments": "Total Departments",
+      "totalTransmissions": "Total Transmissions"
+    },
+    "recentTransmissions": {
+      "header": "Recent Transmissions",
+      "noTransmissions": "No recent transmissions found!",
+      "tempPlaceholder": "Recent transmissions goes here..."
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { UserProfile } from "./UserProfile";
+import type { UserProfile } from "./UserProfile";
 
 export interface User {
   id: number;

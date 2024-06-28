@@ -1,4 +1,4 @@
-import { classNames } from "utils/classNames";
+import { classNames } from "../classNames";
 
 describe("classNames Utility Class", () => {
   it("combines multiple classes", () => {
