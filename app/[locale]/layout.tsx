@@ -1,4 +1,4 @@
-import { NextIntlClientProvider, createTranslator, useLocale } from "next-intl";
+import { NextIntlClientProvider, createTranslator } from "next-intl";
 import { checkLanguage } from "@/utils/i18nUtils";
 import { notFound } from "next/navigation";
 import "./globals.css";
