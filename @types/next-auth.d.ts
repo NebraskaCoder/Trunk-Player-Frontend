@@ -8,7 +8,10 @@ declare module "next-auth" {
    * or the second parameter of the `session` callback, when using a database.
    */
   interface User {
-    access_token?: string;
+    accessToken?: string;
+    accessTokenExpiration?: number;
+    refreshTokenExpiration?: number;
+    apiCookies?: string[];
     apiUser?: APIUser;
   }
 
@@ -17,7 +20,9 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
-      access_token?: string;
+      accessToken?: string;
+      accessTokenExpiration?: number;
+      refreshTokenExpiration?: number;
       apiUser?: APIUser;
     } & DefaultSession["user"];
   }
@@ -26,7 +31,10 @@ declare module "next-auth" {
 declare module "next-auth/jwt" {
   /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
   interface JWT {
-    access_token?: string;
+    accessToken?: string;
+    accessTokenExpiration?: number;
+    refreshTokenExpiration?: number;
+    apiCookies?: string[];
     apiUser?: APIUser;
   }
 }

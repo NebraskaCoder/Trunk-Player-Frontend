@@ -11,7 +11,7 @@ export const OPTIONS: AuthOptions = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        username: {
+        email: {
           label: "Email",
           type: "text",
           placeholder: "jsmith@gmail.com",
@@ -24,21 +24,29 @@ export const OPTIONS: AuthOptions = {
             return null;
           }
 
-          //   const tokenRes = await axios.post(
-          //     "https://api/auth/token/",
-          //     {
-          //       email: credentials.username,
-          //       password: credentials.password,
-          //     },
-          //     {
-          //       withCredentials: true,
-          //     }
-          //   );
+          const tokenRes = await fetch(
+            `${process.env.SERVICE_API_BASE_URL}/auth/token/`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: credentials.email,
+                password: credentials.password,
+              }),
+            }
+          );
 
-          const tokenRes = {
-            data: {
-              access_token: "abc123",
-            },
+          if (!tokenRes.ok) {
+            return Promise.resolve(null);
+          }
+
+          const apiToken = (await tokenRes.json()) as {
+            CSRF_TOKEN: string;
+            access_token_expiration: string;
+            refresh_token_expiration: string;
+            access_token: string;
           };
 
           const userRes: { data: APIUser } = {
@@ -56,18 +64,6 @@ export const OPTIONS: AuthOptions = {
             },
           };
 
-          //   if (tokenRes.status === 200) {
-          //   const userRes = await axios.get<APIUser>("https://api/auth/user", {
-          //     headers: {
-          //       Authorization: `Bearer ${tokenRes.data.access_token}`,
-          //     },
-          //     withCredentials: true,
-          //   });
-
-          //   if (userRes.status === 200) {
-          // This user object will be returned in the JWT, and will be available in the session
-          // Include the access_token here so it can be used by your server on future requests
-
           const userData = userRes.data;
 
           const user: User = {
@@ -75,14 +71,15 @@ export const OPTIONS: AuthOptions = {
             name: `${userData.first_name} ${userData.last_name}`,
             email: userData.email,
             apiUser: userData,
-            access_token: tokenRes.data.access_token,
+            accessToken: apiToken.access_token,
+            accessTokenExpiration: Date.parse(apiToken.access_token_expiration),
+            refreshTokenExpiration: Date.parse(
+              apiToken.refresh_token_expiration
+            ),
+            apiCookies: tokenRes.headers.getSetCookie(),
           };
 
           return Promise.resolve(user);
-          //   }
-          //   }
-
-          //   return Promise.resolve(null);
         } catch (err) {
           console.error(err);
           return Promise.resolve(null);
@@ -100,9 +97,11 @@ export const OPTIONS: AuthOptions = {
   },
   callbacks: {
     jwt: async ({ token, user }) => {
-      // if user is defined, it's the sign in process
       if (user) {
-        token.access_token = user.access_token;
+        token.accessToken = user.accessToken;
+        token.accessTokenExpiration = user.accessTokenExpiration;
+        token.refreshTokenExpiration = user.refreshTokenExpiration;
+        token.apiCookies = user.apiCookies;
         token.apiUser = user.apiUser;
         token.name = user.name;
       }
@@ -110,8 +109,9 @@ export const OPTIONS: AuthOptions = {
       return token;
     },
     session: async ({ session, token }) => {
-      // add access_token to session
-      session.user.access_token = token.access_token;
+      session.user.accessToken = token.accessToken;
+      session.user.accessTokenExpiration = token.accessTokenExpiration;
+      session.user.refreshTokenExpiration = token.refreshTokenExpiration;
       session.user.apiUser = token.apiUser;
       return session;
     },

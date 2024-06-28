@@ -3,7 +3,7 @@
 import { classNames } from "@/utils/classNames";
 import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useLayoutEffect, useRef, useState } from "react";
 import LoadingDotsSpinner from "./LoadingDotsSpinner";
 import { useRouter } from "next/navigation";
 
@@ -69,6 +69,12 @@ const Form = ({ callbackUrl }: { callbackUrl?: string }) => {
     router.push("/register");
   };
 
+  useLayoutEffect(() => {
+    if (emailRef.current) {
+      emailRef.current.focus();
+    }
+  }, []);
+
   return (
     <form
       className="space-y-6"
@@ -92,7 +98,6 @@ const Form = ({ callbackUrl }: { callbackUrl?: string }) => {
             )}
             ref={emailRef}
             tabIndex={1}
-            defaultValue="test@test.com"
           />
           {errors.email && <p className="text-red-600">{errors.email}</p>}
         </div>
@@ -116,7 +121,6 @@ const Form = ({ callbackUrl }: { callbackUrl?: string }) => {
             )}
             ref={passwordRef}
             tabIndex={2}
-            defaultValue="abcabcabc123"
           />
           {errors.password && <p className="text-red-600">{errors.password}</p>}
         </div>

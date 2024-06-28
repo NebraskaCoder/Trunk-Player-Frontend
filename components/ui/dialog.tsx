@@ -5,13 +5,6 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { cn } from "@/lib/utils";
 
-import type { DismissableLayerProps } from "@radix-ui/react-dialog";
-
-export type DialogOnEscapeKeyDown = DismissableLayerProps["onEscapeKeyDown"];
-export type DialogOnPointerDown = DismissableLayerProps["onPointerDown"];
-export type DialogOnInteractOutside =
-  DismissableLayerProps["onInteractOutside"];
-
 const Dialog = DialogPrimitive.Root;
 
 const DialogTrigger = DialogPrimitive.Trigger;
