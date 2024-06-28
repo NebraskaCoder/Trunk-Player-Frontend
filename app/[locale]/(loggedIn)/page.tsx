@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { useTranslations } from "next-intl";
 
 import SummaryList from "./SummaryList";
@@ -17,7 +18,10 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-y-5">
       <H1>{t("summary.header")}</H1>
-      <SummaryList />
+      {/* TODO: Create SummaryList Loading Component */}
+      <Suspense fallback="Loading...">
+        <SummaryList />
+      </Suspense>
       <RecentTransmissions />
     </div>
   );

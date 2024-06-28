@@ -1,14 +1,22 @@
 import { getServerSession as nextAuthGetServerSession } from "next-auth";
 import { OPTIONS } from "@/config/nextAuthOptions";
-import { getToken } from "next-auth/jwt";
+import { type JWT, decode, getToken } from "next-auth/jwt";
 import { parseRefreshToken } from "@/utils/fetchUtils";
 
+import type { NextRequest } from "next/server";
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import type {
   GetServerSidePropsContext,
   NextApiRequest,
   NextApiResponse,
 } from "next";
-import type { NextRequest } from "next/server";
+
+export const authSecret = process.env.NEXTAUTH_SECRET!;
+export const sessionSecure =
+  process.env.NEXTAUTH_URL?.startsWith("https://") ?? false;
+export const sessionCookieName = sessionSecure
+  ? "__Secure-next-auth.session-token"
+  : "next-auth.session-token";
 
 export async function getServerSession(
   ...args:
@@ -22,8 +30,19 @@ export async function getServerSession(
 export async function getServerJWT(
   req: GetServerSidePropsContext["req"] | NextRequest | NextApiRequest
 ) {
-  return await getToken({ req, secret: process.env.JWT_SECRET });
+  return await getToken({ req, secret: authSecret });
 }
+
+const getAuthJWTTokenFromCookies = async (
+  cookies: ReadonlyRequestCookies
+): Promise<JWT | null> => {
+  const jwt = await decode({
+    secret: authSecret,
+    token: cookies.get(sessionCookieName)?.value,
+  });
+
+  return jwt;
+};
 
 export type AuthFetchHeaders =
   | { Authorization: string }
@@ -31,10 +50,18 @@ export type AuthFetchHeaders =
   | undefined;
 
 export async function getAuthFetchHeaders(
-  req: GetServerSidePropsContext["req"] | NextRequest | NextApiRequest
+  req:
+    | GetServerSidePropsContext["req"]
+    | NextRequest
+    | NextApiRequest
+    | ReadonlyRequestCookies
 ): Promise<AuthFetchHeaders> {
   const session = await getServerSession();
-  const token = await getServerJWT(req);
+
+  const token =
+    "get" in req
+      ? await getAuthJWTTokenFromCookies(req)
+      : await getServerJWT(req);
 
   if (!session || !token) {
     return undefined;

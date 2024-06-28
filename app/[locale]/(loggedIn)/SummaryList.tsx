@@ -1,13 +1,29 @@
 import { useTranslations } from "next-intl";
+import { getAuthFetchHeaders } from "@/lib/server/auth";
+import { cookies } from "next/headers";
+import * as apiServerLib from "@/lib/server/apiServerLib";
+
 import SummaryItem from "./components/SummaryItem";
 
 import { CardGrid } from "@/components/ui/card-grid";
 
-const SummaryList = () => {
+const SummaryList = async () => {
   const t = useTranslations("dashboard.summary");
 
+  const authHeaders = await getAuthFetchHeaders(cookies());
+
+  if (!authHeaders) {
+    return null;
+  }
+
+  const systems = await apiServerLib.getSystems(authHeaders);
+
+  if (!systems) {
+    return null;
+  }
+
   const stats = {
-    totalSystems: 2,
+    totalSystems: systems.count,
     totalScanners: 18,
     totalScanLists: 9,
     totalDepartments: 5,

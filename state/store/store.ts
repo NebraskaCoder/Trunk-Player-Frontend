@@ -1,14 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import layoutReducer from "@/state/slices/layoutSlice";
+import { socketConnectionSlice } from "../slices/socketConnectionSlice";
+import systemsReducer from "../slices/entitySlices/systemsSlice";
 
-export function makeStore() {
+export const makeStore = () => {
   return configureStore({
     reducer: {
-      layout: layoutReducer,
+      socketConnection: socketConnectionSlice.reducer,
+      systems: systemsReducer,
     },
     devTools: process.env.NODE_ENV !== "production",
   });
-}
+};
 
 export const store = makeStore();
