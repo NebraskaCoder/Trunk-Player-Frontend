@@ -114,6 +114,7 @@ const updateCookie = (
   res: NextResponse
 ) => {
   if (sessionToken) {
+    res = NextResponse.redirect(req.url, { headers: req.headers });
     // Set the session token in the request and response cookies for a valid session
     req.cookies.set(sessionCookieName, sessionToken);
     res.cookies.set(sessionCookieName, sessionToken, {
@@ -141,7 +142,9 @@ const authMiddleware = withAuth(
       return NextResponse.redirect(new URL(signinSubUrl, req.url));
     }
 
-    const reponseNext = intlMiddleware(req);
+    const isAPIPath = req.nextUrl.pathname.startsWith("/api");
+
+    const reponseNext = isAPIPath ? NextResponse.next() : intlMiddleware(req);
 
     if (shouldUpdateToken(token)) {
       try {
@@ -186,5 +189,6 @@ export default async function middleware(req: NextRequest) {
 
 export const config = {
   // Skip all paths that should not be internationalized
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  // matcher: ["/((?!api|_next|.*\\..*).*)"],
+  matcher: ["/((?!_next|.*\\..*).*)"],
 };
