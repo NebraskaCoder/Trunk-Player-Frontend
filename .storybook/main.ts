@@ -8,19 +8,22 @@ const config: StorybookConfig = {
     "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)",
     "../**/*.stories.@(js|jsx|mjs|ts|tsx)",
   ],
+
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
+    "@storybook/addon-mdx-gfm",
   ],
+
   framework: {
     name: "@storybook/nextjs",
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
+
+  docs: {},
+
   async webpackFinal(config, { configType }) {
     if (config?.resolve?.alias) {
       config.resolve.alias = {
@@ -33,6 +36,10 @@ const config: StorybookConfig = {
       };
     }
     return config;
+  },
+
+  typescript: {
+    reactDocgen: "react-docgen-typescript",
   },
 };
 export default config;

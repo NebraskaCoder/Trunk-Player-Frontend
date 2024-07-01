@@ -1,5 +1,7 @@
 import React from "react";
 import { NextIntlClientProvider } from "next-intl";
+import ReduxProvider from "../components/ReduxProvider";
+import { NextAuthProvider } from "../app/[locale]/(loggedIn)/providers";
 // @ts-expect-error
 import { checkLanguage } from "@/utils/i18nUtils";
 
@@ -25,7 +27,11 @@ const preview: Preview = {
         locale={locale}
         messages={messages}
       >
-        <Story />
+        <ReduxProvider>
+          <NextAuthProvider>
+            <Story />
+          </NextAuthProvider>
+        </ReduxProvider>
       </NextIntlClientProvider>
     ),
   ],
