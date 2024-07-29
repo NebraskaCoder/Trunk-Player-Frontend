@@ -31,7 +31,7 @@ jobs:
         continue-on-error: ${{ github.event_name == 'pull_request' }}
       - name: Comment ESLint warnings/errors on PR
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -54,7 +54,7 @@ jobs:
         continue-on-error: ${{ github.event_name == 'pull_request' }}
       - name: Comment failed unit tests on PR
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
@@ -70,7 +70,7 @@ jobs:
             }
       - name: Fail workflow if there are ESLint errors or failed unit tests
         if: ${{ github.event_name == 'pull_request' }}
-        uses: actions/github-script@v5
+        uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs');
